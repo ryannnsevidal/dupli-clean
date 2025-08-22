@@ -5,6 +5,9 @@ export const config = {
     "/import",
     "/duplicates",
     "/settings",
-    "/api/(?!auth|testing|healthz|metrics).*",
+    "/api/upload/:path*",
+    "/api/duplicates/:path*",
+    "/api/rclone/:path*",
+    "/api/thumb/:path*",
   ],
 };

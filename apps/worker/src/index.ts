@@ -5,10 +5,9 @@ import {
   S3Client,
   GetObjectCommand,
   PutObjectCommand,
-  DeleteObjectCommand,
 } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
-import { phash64FromGrayMatrix, bucket16, hammingHex64 } from '@dupli/hashing/phash';
+import { phash64FromGrayMatrix, bucket16, hammingHex64 } from '@dupli/hashing';
 import { PrismaClient } from '@dupli/db';
 import { execa } from 'execa';
 import fs from 'node:fs/promises';
