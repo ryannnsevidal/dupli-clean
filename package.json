@@ -1,0 +1,37 @@
+{
+  "name": "dupli-clean",
+  "version": "1.0.0",
+  "description": "Production-grade duplicate image and PDF detection and deletion",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean",
+    "seed": "pnpm --filter @dupli/db db:seed",
+    "db:generate": "pnpm --filter @dupli/db db:generate",
+    "db:push": "pnpm --filter @dupli/db db:push",
+    "db:migrate": "pnpm --filter @dupli/db db:migrate",
+    "e2e:install": "playwright install --with-deps",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:trace": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "turbo": "^1.10.0",
+    "@types/node": "^20.8.0",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.6.0"
+}
