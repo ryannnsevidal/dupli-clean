@@ -14,4 +14,198 @@ model User {
   image     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  accounts  Account[]
+  sessions  Session[]
+  projects  Project[]
+  auditLogs AuditLog[]
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  @@unique([identifier, token])
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  ownerId   String
+  name      String   @default("default")
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  files     File[]
+  @@index([ownerId])
+}
+
+model File {
+  id           String     @id @default(cuid())
+  projectId    String
+  ownerId      String
+  originalName String
+  mimeType     String
+  byteSize     BigInt
+  sha256Hex    String     @db.VarChar(64)
+  storageKey   String
+  createdAt    DateTime   @default(now())
+  status       FileStatus @default(PROCESSED)
+  source       FileSource @default(LOCAL)
+  cloudPath    String?    // Path in cloud service (e.g., "Photos/2023/vacation.jpg")
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assets       Asset[]
+  @@index([ownerId])
+  @@index([projectId])
+  @@index([sha256Hex])
+  @@index([source])
+}
+
+enum FileStatus { UPLOADED PROCESSED FAILED }
+enum FileSource { LOCAL GOOGLE_DRIVE DROPBOX ONEDRIVE BOX AMAZON_S3 OTHER }
+
+model Asset {
+  id        String   @id @default(cuid())
+  fileId    String
+  ownerId   String
+  kind      AssetKind
+  pageIndex Int?
+  width     Int?
+  height    Int?
+  thumbKey  String?
+  createdAt DateTime @default(now())
+  file      File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  hashes    Hash[]
+  clusters  ClusterMember[]
+  @@index([ownerId])
+  @@index([kind])
+}
+
+enum AssetKind { IMAGE PDF_PAGE }
+
+model Hash {
+  id        String   @id @default(cuid())
+  assetId   String
+  kind      HashKind
+  hex64     String   @db.VarChar(16)
+  bucket16  Int
+  createdAt DateTime @default(now())
+  asset     Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  @@index([assetId])
+  @@index([bucket16])
+  @@index([kind, bucket16])
+}
+
+enum HashKind { PHASH AHASH DHASH }
+
+model DuplicateCluster {
+  id        String   @id @default(cuid())
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  members   ClusterMember[]
+  @@index([ownerId])
+}
+
+model ClusterMember {
+  id        String  @id @default(cuid())
+  clusterId String
+  assetId   String
+  isKeeper  Boolean @default(false)
+  cluster   DuplicateCluster @relation(fields: [clusterId], references: [id], onDelete: Cascade)
+  asset     Asset            @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  @@unique([clusterId, assetId])
+  @@index([clusterId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  ownerId   String
+  action    String   // e.g., "upload", "delete", "import_cloud"
+  payload   Json?    // Additional context
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  @@index([ownerId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// Cloud service configurations
+model CloudService {
+  id        String   @id @default(cuid())
+  ownerId   String
+  name      String   // User-friendly name
+  type      CloudServiceType
+  config    Json     // Encrypted configuration
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([ownerId])
+  @@index([type])
+}
+
+enum CloudServiceType { 
+  GOOGLE_DRIVE 
+  DROPBOX 
+  ONEDRIVE 
+  BOX 
+  AMAZON_S3 
+  GOOGLE_PHOTOS 
+  ICLOUD 
+  OTHER 
+}
+
+// Processing jobs for background workers
+model ProcessingJob {
+  id        String   @id @default(cuid())
+  ownerId   String
+  type      JobType
+  status    JobStatus @default(PENDING)
+  payload   Json
+  result    Json?
+  error     String?
+  startedAt DateTime?
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([ownerId])
+  @@index([status])
+  @@index([type])
+}
+
+enum JobType { 
+  FILE_INGEST 
+  CLOUD_IMPORT 
+  DUPLICATE_SCAN 
+  BULK_DELETE 
+  THUMBNAIL_GENERATION 
+}
+
+enum JobStatus { 
+  PENDING 
+  PROCESSING 
+  COMPLETED 
+  FAILED 
+  CANCELLED 
 }

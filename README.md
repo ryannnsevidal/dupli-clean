@@ -1,34 +1,77 @@
 # DupliClean 🧹✨
 
-**Production-grade duplicate file detection and cleanup for images and PDFs**
+**Enterprise-grade duplicate file detection and cleanup powered by ML**
 
-DupliClean is a modern web application that helps you find and remove duplicate and near-duplicate images and PDFs from your digital collection. Built with Next.js 14, TypeScript, and powered by perceptual hashing algorithms.
+DupliClean is a production-ready web application that uses advanced machine learning algorithms and perceptual hashing to detect and remove duplicate images and PDFs from your digital collection. Built with Next.js 14, TypeScript, and modern ML techniques.
 
 ## ✨ Features
 
-- **🔐 Secure Authentication**: Email magic-link login with NextAuth.js
-- **📁 Smart File Import**: Drag & drop, folder picker, and cloud service integration
-- **🔍 Advanced Detection**: Perceptual hashing (pHash) for near-duplicate detection
-- **📄 PDF Support**: Automatic page extraction and duplicate detection
-- **☁️ Cloud Integration**: Import from Google Drive, Dropbox, OneDrive via rclone
-- **🎯 Smart Selection**: Automatic keeper selection based on quality metrics
-- **📊 Audit Trail**: Complete deletion history and logging
-- **🚀 Production Ready**: Docker Compose, health checks, rate limiting, monitoring
+### 🔐 **Secure Authentication**
+- **Email Magic Link Login** - Passwordless authentication with NextAuth.js
+- **JWT Sessions** - Secure session management with Prisma adapter
+- **User Data Isolation** - Complete data separation between users
+
+### 📁 **Smart File Management**
+- **Drag & Drop Upload** - Intuitive file selection with progress tracking
+- **Cloud Service Integration** - Import from 50+ services via rclone
+- **Folder Support** - Upload entire directories
+- **Multiple Formats** - Images (JPG, PNG, WebP, GIF) and PDFs
+- **Pre-signed URLs** - Secure direct-to-S3 uploads
+
+### 🔍 **Advanced Duplicate Detection**
+- **Perceptual Hashing** - pHash, aHash, dHash algorithms
+- **ML Embeddings** - CLIP, VGG16, ResNet50 for enhanced similarity
+- **Smart Clustering** - Union-find algorithm with keeper selection
+- **Hash Bucketing** - O(log n) candidate search for large datasets
+- **Near-Duplicate Support** - Configurable similarity thresholds
+
+### 🎨 **Modern UI/UX**
+- **Responsive Dashboard** - Real-time statistics and ML insights
+- **Interactive Charts** - Visual analytics with Recharts
+- **Real-time Updates** - Live progress and status indicators
+- **Smart Defaults** - Automatically selects best quality files
+- **Bulk Operations** - One-click deletion with confirmation
+
+### ☁️ **Cloud Integration**
+- **50+ Cloud Services** - Google Drive, Dropbox, OneDrive, Box, Amazon S3
+- **Background Import** - Non-blocking file copying
+- **Service Management** - Easy cloud service configuration
+- **Progress Tracking** - Real-time import status
+
+### 🚀 **Production Ready**
+- **Docker Compose** - Complete containerized deployment
+- **Background Workers** - BullMQ job queue for scalability
+- **Health Checks** - Comprehensive monitoring
+- **Audit Logging** - Complete operation history
+- **Rate Limiting** - API protection
 
 ## 🏗️ Architecture
 
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Next.js 14    │    │   Background    │    │   PostgreSQL    │
-│   Web App       │◄──►│   Worker        │◄──►│   Database      │
-│   (React 18)    │    │   (BullMQ)      │    │   (Prisma)      │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   MinIO/S3      │    │   Redis         │    │   rclone        │
-│   Object Store  │    │   (Queue)       │    │   (Cloud Sync)  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    DupliClean Architecture                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│  │   Next.js   │    │   API       │    │ PostgreSQL  │     │
+│  │   Frontend  │◄──►│   Routes    │◄──►│   Database  │     │
+│  │   (React)   │    │   (Node)    │    │  (Prisma)   │     │
+│  └─────────────┘    └─────────────┘    └─────────────┘     │
+│         │                   │                   │           │
+│         │ Upload            │ Enqueue           │ Store     │
+│         ▼                   ▼                   ▼           │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│  │   MinIO/S3  │    │   Redis     │    │   Worker    │     │
+│  │   Storage   │    │   (BullMQ)  │    │  (Node.js)  │     │
+│  └─────────────┘    └─────────────┘    └─────────────┘     │
+│         │                   │                   │           │
+│         │                   │                   │           │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐     │
+│  │   rclone    │    │   ML        │    │   Thumbnail │     │
+│  │   Service   │    │   Models    │    │   Generation│     │
+│  └─────────────┘    └─────────────┘    └─────────────┘     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## 🚀 Quick Start
@@ -74,6 +117,7 @@ dupli-clean/
 ├── packages/
 │   ├── db/                  # Prisma database package
 │   ├── hashing/             # Perceptual hashing algorithms
+│   ├── ml/                  # ML embeddings and similarity
 │   ├── shared/              # Shared utilities and types
 │   └── config/              # Shared configuration
 ├── tests/
@@ -147,6 +191,26 @@ RCLONE_RC_PASS="rclone"
 NEXT_PUBLIC_S3_URL="http://localhost:9000/dups"
 ```
 
+## 🤖 ML Features
+
+### Perceptual Hashing
+- **pHash** - Discrete Cosine Transform based hashing
+- **aHash** - Average hash for fast comparison
+- **dHash** - Difference hash for edge detection
+- **Hash Bucketing** - O(log n) search performance
+
+### Machine Learning Embeddings
+- **CLIP** - OpenAI's vision-language model
+- **VGG16** - Deep CNN features
+- **ResNet50** - Residual network features
+- **Cosine Similarity** - Advanced similarity detection
+
+### Enhanced Detection
+- **Two-tier Approach** - Hash + ML confirmation
+- **Configurable Thresholds** - Adjustable sensitivity
+- **Batch Processing** - Efficient large-scale analysis
+- **Model Selection** - Choose optimal ML model per use case
+
 ## ☁️ Cloud Service Integration
 
 DupliClean supports importing files from various cloud services using rclone:
@@ -167,6 +231,26 @@ DupliClean supports importing files from various cloud services using rclone:
 3. Select your cloud service
 4. Follow the authentication flow
 5. Use the "Cloud Services" tab in DupliClean to import files
+
+## 📊 Dashboard & Analytics
+
+### Real-time Statistics
+- **File Counts** - Total files, assets, and duplicates
+- **Storage Usage** - Disk space and bandwidth metrics
+- **Processing Jobs** - Background task status
+- **ML Model Usage** - Embedding generation statistics
+
+### Interactive Charts
+- **File Type Distribution** - Pie charts of file formats
+- **Job Status Overview** - Processing pipeline health
+- **ML Model Performance** - Model usage analytics
+- **Cloud Service Activity** - Import statistics
+
+### Processing Insights
+- **Background Jobs** - Real-time job monitoring
+- **Error Tracking** - Failed job analysis
+- **Performance Metrics** - Processing speed and efficiency
+- **Audit Trail** - Complete operation history
 
 ## 🧪 Testing
 
@@ -194,9 +278,11 @@ pnpm e2e:headed
 The E2E tests cover:
 - User authentication flow
 - File upload and processing
+- ML embedding generation
 - Duplicate detection and clustering
+- Cloud service integration
 - Bulk deletion with audit logging
-- Thumbnail generation
+- Dashboard analytics
 
 ## 🚀 Deployment
 
@@ -260,6 +346,15 @@ docker compose down
 docker compose up -d
 ```
 
+**ML Model Issues**
+```bash
+# Check ML package installation
+pnpm --filter @dupli/ml install
+
+# Verify TensorFlow.js setup
+pnpm --filter @dupli/ml test
+```
+
 **E2E Tests Failing**
 ```bash
 # Ensure all services are running
@@ -273,21 +368,14 @@ curl http://localhost:9000/minio/health/live
 pnpm e2e:headed
 ```
 
-**rclone Connection Issues**
-```bash
-# Check rclone service
-curl http://localhost:5572
-
-# Reconfigure rclone
-docker compose exec rclone rclone config reconnect
-```
-
 ### Performance Optimization
 
-- **Database Indexes**: Ensure Prisma indexes are created
-- **Hash Bucketing**: Uses O(log n) search for duplicates
-- **Background Processing**: File processing doesn't block the UI
-- **Caching**: Redis for session and queue management
+- **Database Indexes** - Ensure Prisma indexes are created
+- **Hash Bucketing** - Uses O(log n) search for duplicates
+- **Background Processing** - File processing doesn't block the UI
+- **ML Model Caching** - Embedding generation optimization
+- **Connection Pooling** - Efficient database connections
+- **CDN Ready** - Static assets optimized
 
 ## 📊 Monitoring
 
@@ -295,6 +383,7 @@ docker compose exec rclone rclone config reconnect
 
 - **Web App**: `GET /api/healthz`
 - **Metrics**: `GET /api/metrics` (Prometheus format)
+- **Dashboard**: `GET /api/dashboard/stats`
 
 ### Logs
 
@@ -320,6 +409,7 @@ docker compose logs postgres redis minio
 - Write tests for new features
 - Update documentation
 - Follow conventional commits
+- Include ML model documentation
 
 ## 📄 License
 
@@ -332,7 +422,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **rclone** for cloud service integration
 - **Sharp** for image processing
 - **BullMQ** for job queuing
+- **TensorFlow.js** for ML capabilities
+- **Recharts** for data visualization
 
 ---
 
-**Made with ❤️ for keeping your digital life organized**
+**Made with ❤️ for keeping your digital life organized and intelligent** 🧹✨🤖

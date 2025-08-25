@@ -149,6 +149,7 @@ async function clusterAsset(ownerId: string, assetId: string, hex: string): Prom
 async function handleImage(job: IngestJobData): Promise<void> {
   const buf = await downloadS3ToBuffer(job.storageKey);
   const { pHashHex, width, height, thumb } = await computePHashFromImageBuffer(buf);
+  
   const asset = await prisma.asset.create({
     data: {
       fileId: job.fileId,
@@ -158,9 +159,12 @@ async function handleImage(job: IngestJobData): Promise<void> {
       height: height ?? undefined,
     },
   });
+  
+  // Store hash
   await prisma.hash.create({
     data: { assetId: asset.id, kind: 'PHASH', hex64: pHashHex, bucket16: bucket16(pHashHex) },
   });
+  
   await storeThumb(asset.id, thumb);
   await clusterAsset(job.ownerId, asset.id, pHashHex);
 }
@@ -178,6 +182,7 @@ async function handlePdf(job: IngestJobData): Promise<void> {
     const p = path.join(tmp, file);
     const buf = await fs.readFile(p);
     const { pHashHex, width, height, thumb } = await computePHashFromImageBuffer(buf);
+    
     const asset = await prisma.asset.create({
       data: {
         fileId: job.fileId,
@@ -188,9 +193,12 @@ async function handlePdf(job: IngestJobData): Promise<void> {
         height: height ?? undefined,
       },
     });
+    
+    // Store hash
     await prisma.hash.create({
       data: { assetId: asset.id, kind: 'PHASH', hex64: pHashHex, bucket16: bucket16(pHashHex) },
     });
+    
     await storeThumb(asset.id, thumb);
     await clusterAsset(job.ownerId, asset.id, pHashHex);
     pageIndex++;
