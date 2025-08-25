@@ -14,7 +14,10 @@
     "db:push": "turbo run db:push",
     "db:migrate": "turbo run db:migrate",
     "deploy:render": "./scripts/deploy-production.sh",
-    "setup:env": "./scripts/setup-env.sh"
+    "setup:env": "./scripts/setup-env.sh",
+    "start:web": "cd apps/web && npm run dev",
+    "start:worker": "cd apps/worker && npm run dev",
+    "install:all": "npm install && cd apps/web && npm install && cd ../../apps/worker && npm install && cd ../../packages/db && npm install && cd ../../packages/hashing && npm install && cd ../../packages/shared && npm install"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",

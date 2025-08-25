@@ -9,13 +9,16 @@ export default function HomePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  // Temporarily bypass authentication for demo
+  const isDemo = true;
+
   useEffect(() => {
-    if (status === 'authenticated' && session?.user) {
+    if (!isDemo && status === 'authenticated' && session?.user) {
       router.push('/dashboard');
     }
-  }, [session, status, router]);
+  }, [session, status, router, isDemo]);
 
-  if (status === 'loading') {
+  if (!isDemo && status === 'loading') {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -26,7 +29,7 @@ export default function HomePage() {
     );
   }
 
-  if (status === 'authenticated') {
+  if (!isDemo && status === 'authenticated') {
     return null; // Will redirect to dashboard
   }
 

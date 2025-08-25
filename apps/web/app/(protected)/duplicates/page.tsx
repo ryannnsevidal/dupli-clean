@@ -31,6 +31,10 @@ export default function DuplicatesPage() {
   const { data: session } = useSession();
   const router = useRouter();
   const { toast } = useToast();
+  const [selectedAssets, setSelectedAssets] = useState<Record<string, string[]>>({});
+
+  // Demo mode - bypass authentication
+  const isDemo = true;
 
   const { data: groups, error, mutate } = useSWR<DuplicateGroup[]>(
     "/api/duplicates",
@@ -38,7 +42,7 @@ export default function DuplicatesPage() {
     { refreshInterval: 5000 }
   );
 
-  if (!session?.user) {
+  if (!isDemo && !session?.user) {
     router.push("/auth/signin");
     return null;
   }

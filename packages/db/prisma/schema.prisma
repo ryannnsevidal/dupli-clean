@@ -83,9 +83,6 @@ model File {
   @@index([source])
 }
 
-enum FileStatus { UPLOADED PROCESSED FAILED }
-enum FileSource { LOCAL GOOGLE_DRIVE DROPBOX ONEDRIVE BOX AMAZON_S3 OTHER }
-
 model Asset {
   id        String   @id @default(cuid())
   fileId    String
@@ -103,8 +100,6 @@ model Asset {
   @@index([kind])
 }
 
-enum AssetKind { IMAGE PDF_PAGE }
-
 model Hash {
   id        String   @id @default(cuid())
   assetId   String
@@ -117,8 +112,6 @@ model Hash {
   @@index([bucket16])
   @@index([kind, bucket16])
 }
-
-enum HashKind { PHASH AHASH DHASH }
 
 model DuplicateCluster {
   id        String   @id @default(cuid())
@@ -166,17 +159,6 @@ model CloudService {
   @@index([type])
 }
 
-enum CloudServiceType { 
-  GOOGLE_DRIVE 
-  DROPBOX 
-  ONEDRIVE 
-  BOX 
-  AMAZON_S3 
-  GOOGLE_PHOTOS 
-  ICLOUD 
-  OTHER 
-}
-
 // Processing jobs for background workers
 model ProcessingJob {
   id        String   @id @default(cuid())
@@ -192,6 +174,45 @@ model ProcessingJob {
   @@index([ownerId])
   @@index([status])
   @@index([type])
+}
+
+// Enums
+enum FileStatus { 
+  UPLOADED 
+  PROCESSED 
+  FAILED 
+}
+
+enum FileSource { 
+  LOCAL 
+  GOOGLE_DRIVE 
+  DROPBOX 
+  ONEDRIVE 
+  BOX 
+  AMAZON_S3 
+  OTHER 
+}
+
+enum AssetKind { 
+  IMAGE 
+  PDF_PAGE 
+}
+
+enum HashKind { 
+  PHASH 
+  AHASH 
+  DHASH 
+}
+
+enum CloudServiceType { 
+  GOOGLE_DRIVE 
+  DROPBOX 
+  ONEDRIVE 
+  BOX 
+  AMAZON_S3 
+  GOOGLE_PHOTOS 
+  ICLOUD 
+  OTHER 
 }
 
 enum JobType { 

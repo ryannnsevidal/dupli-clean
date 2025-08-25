@@ -13,7 +13,11 @@ export default function ProtectedLayout({
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === 'loading') {
+  // Demo mode - bypass authentication for testing
+  const isDemo = true;
+  const demoUser = { email: 'demo@dupliclean.com' };
+
+  if (!isDemo && status === 'loading') {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -24,10 +28,12 @@ export default function ProtectedLayout({
     );
   }
 
-  if (!session?.user) {
+  if (!isDemo && !session?.user) {
     router.push('/auth/signin');
     return null;
   }
+
+  const currentUser = isDemo ? demoUser : session?.user;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -64,15 +70,20 @@ export default function ProtectedLayout({
             </div>
             
             <div className="flex items-center space-x-4">
+              {isDemo && (
+                <div className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">
+                  DEMO MODE
+                </div>
+              )}
               <div className="text-sm text-gray-700">
-                {session.user.email}
+                {currentUser?.email}
               </div>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => signOut()}
+                onClick={() => isDemo ? router.push('/') : signOut()}
               >
-                Sign Out
+                {isDemo ? 'Exit Demo' : 'Sign Out'}
               </Button>
             </div>
           </div>

@@ -2,10 +2,14 @@ import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import EmailProvider from "next-auth/providers/email";
 import { prisma } from "@dupli/db";
-import Redis from "ioredis";
 
 const isProd = process.env.NODE_ENV === "production";
-const rc = !isProd ? new Redis(process.env.REDIS_URL!) : null;
+// Only import Redis on server side
+let rc: any = null;
+if (typeof window === 'undefined') {
+  const Redis = require("ioredis");
+  rc = !isProd ? new Redis(process.env.REDIS_URL!) : null;
+}
 
 export const auth: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -68,3 +72,6 @@ export const auth: NextAuthOptions = {
     verifyRequest: "/auth/verify-request",
   },
 };
+
+// Export authOptions for compatibility
+export const authOptions = auth;

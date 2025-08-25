@@ -43,6 +43,9 @@ export default function DashboardPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'overview' | 'jobs'>('overview');
 
+  // Demo mode - bypass authentication
+  const isDemo = true;
+
   const { data: stats, error: statsError } = useSWR<DashboardStats>(
     "/api/dashboard/stats",
     fetcher,
@@ -55,7 +58,7 @@ export default function DashboardPage() {
     { refreshInterval: 5000 }
   );
 
-  if (!session?.user) {
+  if (!isDemo && !session?.user) {
     router.push("/auth/signin");
     return null;
   }
