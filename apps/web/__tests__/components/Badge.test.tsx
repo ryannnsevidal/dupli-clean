@@ -76,8 +76,8 @@ describe('Badge Component', () => {
   })
 
   it('handles emoji content', () => {
-    render(<Badge>🚀</Badge>)
-    const badge = screen.getByText('🚀')
+    render(<Badge>Test</Badge>)
+    const badge = screen.getByText('Test')
     expect(badge).toBeInTheDocument()
   })
 

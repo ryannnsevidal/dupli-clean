@@ -43,7 +43,7 @@ export default function ProtectedLayout({
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-2">
-                <div className="text-2xl">🧹</div>
+                <div className="text-2xl"> </div>
                 <span className="font-bold text-xl text-gray-900">DupliClean</span>
               </Link>
               

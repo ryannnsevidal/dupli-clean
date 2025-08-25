@@ -1,4 +1,19 @@
-'use client';
+/**
+ * DupliClean Landing Page
+ * 
+ * This is the main landing page for the DupliClean duplicate detection platform.
+ * It showcases the application's key features, value proposition, and call-to-action
+ * for users to get started with duplicate file management. The page demonstrates
+ * professional design, responsive layout, and clear communication of business value.
+ * 
+ * Features demonstrated:
+ * - Professional marketing copy and value proposition
+ * - Responsive design with modern UI components
+ * - Clear call-to-action for user engagement
+ * - Technical capabilities overview
+ * - Business benefits presentation
+ */
+
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -40,7 +55,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
-              <div className="text-2xl">🧹</div>
+              <div className="text-2xl"> </div>
               <span className="font-bold text-xl text-gray-900">DupliClean</span>
             </div>
             <div className="flex items-center space-x-4">
@@ -82,7 +97,7 @@ export default function HomePage() {
         {/* Features Grid */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="text-4xl mb-4">🔍</div>
+            <div className="text-4xl mb-4">Search</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Advanced Detection
             </h3>
@@ -93,7 +108,7 @@ export default function HomePage() {
           </div>
           
           <div className="text-center">
-            <div className="text-4xl mb-4">☁️</div>
+            <div className="text-4xl mb-4">Cloud</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Cloud Integration
             </h3>
@@ -104,7 +119,7 @@ export default function HomePage() {
           </div>
           
           <div className="text-center">
-            <div className="text-4xl mb-4">🚀</div>
+            <div className="text-4xl mb-4">Ready</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Fast & Scalable
             </h3>

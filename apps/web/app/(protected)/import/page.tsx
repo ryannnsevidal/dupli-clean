@@ -1,4 +1,21 @@
-"use client";
+/**
+ * DupliClean Import Page
+ * 
+ * This page handles file import functionality for the duplicate detection platform.
+ * It provides both local file upload and cloud service integration capabilities.
+ * The page demonstrates professional file handling, progress tracking, and
+ * user-friendly interface design for bulk file operations.
+ * 
+ * Key features:
+ * - Drag and drop file upload interface
+ * - Cloud service integration (Google Drive, Dropbox, OneDrive)
+ * - Real-time upload progress tracking
+ * - File type validation and processing
+ * - Background job queuing and monitoring
+ * - Professional error handling and user feedback
+ */
+
+'use client';
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
@@ -217,7 +234,7 @@ export default function ImportPage() {
                   >
                     <div className="flex items-center space-x-3">
                       <div className="text-2xl">
-                        {fileWithProgress.file.type.startsWith("image/") ? "🖼️" : "📄"}
+                        {fileWithProgress.file.type.startsWith("image/") ? "Image" : "Document"}
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">

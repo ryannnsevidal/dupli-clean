@@ -1,6 +1,6 @@
-# DupliClean Environment Setup Guide 🔧
+# DupliClean Environment Setup Guide
 
-## 📋 **Required Environment Variables**
+## Required Environment Variables
 
 Copy `env.example` to `.env` and configure the following variables:
 
@@ -8,9 +8,9 @@ Copy `env.example` to `.env` and configure the following variables:
 cp env.example .env
 ```
 
-## 🗄️ **Database Configuration**
+## Database Configuration
 
-### **DATABASE_URL**
+### DATABASE_URL
 **Required**: PostgreSQL connection string
 
 **Local Development:**
@@ -29,9 +29,9 @@ DATABASE_URL="postgresql://username:password@host:5432/database_name"
 - **Heroku**: `heroku addons:create heroku-postgresql:mini`
 - **Railway**: Create PostgreSQL service in dashboard
 
-## 🔴 **Redis Configuration**
+## Redis Configuration
 
-### **REDIS_URL**
+### REDIS_URL
 **Required**: Redis connection string
 
 **Local Development:**
@@ -50,9 +50,9 @@ REDIS_URL="redis://username:password@host:6379"
 - **Heroku**: `heroku addons:create heroku-redis:mini`
 - **Railway**: Create Redis service in dashboard
 
-## ☁️ **S3/MinIO Storage**
+## S3/MinIO Storage
 
-### **S3_ENDPOINT**
+### S3_ENDPOINT
 **Required**: S3-compatible storage endpoint
 
 **Local Development (MinIO):**
@@ -70,7 +70,7 @@ S3_ENDPOINT="https://s3.amazonaws.com"
 - **Backblaze B2**: `https://s3.us-west-002.backblazeb2.com`
 - **DigitalOcean Spaces**: `https://nyc3.digitaloceanspaces.com`
 
-### **S3_REGION**
+### S3_REGION
 **Required**: Storage region
 
 **Examples:**
@@ -81,7 +81,7 @@ S3_REGION="nyc3"             # DigitalOcean NYC
 S3_REGION="auto"             # Cloudflare R2
 ```
 
-### **S3_ACCESS_KEY & S3_SECRET_KEY**
+### S3_ACCESS_KEY & S3_SECRET_KEY
 **Required**: Storage credentials
 
 **How to get:**
@@ -91,7 +91,7 @@ S3_REGION="auto"             # Cloudflare R2
 - **DigitalOcean**: Create Spaces access key
 - **MinIO**: Default is `minioadmin`/`minioadmin`
 
-### **S3_BUCKET**
+### S3_BUCKET
 **Required**: Storage bucket name
 
 **Examples:**
@@ -107,9 +107,9 @@ S3_BUCKET="my-duplicate-detection"
 - **DigitalOcean**: Create Space in dashboard
 - **MinIO**: Will be created automatically by Docker
 
-## 🔐 **Authentication (NextAuth.js)**
+## Authentication (NextAuth.js)
 
-### **NEXTAUTH_URL**
+### NEXTAUTH_URL
 **Required**: Your application URL
 
 **Local Development:**
@@ -123,7 +123,7 @@ NEXTAUTH_URL="https://your-domain.com"
 NEXTAUTH_URL="https://your-app.onrender.com"
 ```
 
-### **NEXTAUTH_SECRET**
+### NEXTAUTH_SECRET
 **Required**: Secret key for JWT encryption
 
 **Generate a secure secret:**
@@ -140,9 +140,9 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 NEXTAUTH_SECRET="your-generated-secret-key-here"
 ```
 
-## 📧 **Email Configuration (Resend)**
+## Email Configuration (Resend)
 
-### **RESEND_API_KEY**
+### RESEND_API_KEY
 **Required**: Resend API key for email magic links
 
 **How to get:**
@@ -156,7 +156,7 @@ NEXTAUTH_SECRET="your-generated-secret-key-here"
 RESEND_API_KEY="re_1234567890abcdef..."
 ```
 
-### **EMAIL_FROM**
+### EMAIL_FROM
 **Required**: Sender email address
 
 **Must be verified in Resend:**
@@ -170,9 +170,9 @@ EMAIL_FROM="dupliclean@yourdomain.com"
 2. Follow DNS verification steps
 3. Or use Resend's sandbox domain for testing
 
-## ⚙️ **Application Settings**
+## Application Settings
 
-### **MAX_UPLOAD_MB**
+### MAX_UPLOAD_MB
 **Optional**: Maximum file upload size in MB
 
 **Default:**
@@ -180,7 +180,7 @@ EMAIL_FROM="dupliclean@yourdomain.com"
 MAX_UPLOAD_MB=100
 ```
 
-### **LOG_LEVEL**
+### LOG_LEVEL
 **Optional**: Logging level
 
 **Options:**
@@ -191,7 +191,7 @@ LOG_LEVEL="info"      # Info, warnings, and errors
 LOG_LEVEL="debug"     # All logs
 ```
 
-### **NODE_ENV**
+### NODE_ENV
 **Required**: Environment mode
 
 **Options:**
@@ -200,9 +200,9 @@ NODE_ENV="development"  # Local development
 NODE_ENV="production"   # Production deployment
 ```
 
-## 🔗 **Cloud Integration (Rclone)**
+## Cloud Integration (Rclone)
 
-### **RCLONE_RC_URL**
+### RCLONE_RC_URL
 **Required**: Rclone remote control URL
 
 **Local Development:**
@@ -215,7 +215,7 @@ RCLONE_RC_URL="http://localhost:5572"
 RCLONE_RC_URL="http://rclone:5572"
 ```
 
-### **RCLONE_RC_USER & RCLONE_RC_PASS**
+### RCLONE_RC_USER & RCLONE_RC_PASS
 **Required**: Rclone remote control credentials
 
 **Default (Docker):**
@@ -224,7 +224,7 @@ RCLONE_RC_USER="rclone"
 RCLONE_RC_PASS="rclone"
 ```
 
-## 🚀 **Complete Environment File Example**
+## Complete Environment File Example
 
 ```bash
 # Database
@@ -261,9 +261,9 @@ RCLONE_RC_USER="rclone"
 RCLONE_RC_PASS="rclone"
 ```
 
-## 🔧 **Quick Setup Commands**
+## Quick Setup Commands
 
-### **Local Development Setup:**
+### Local Development Setup:
 ```bash
 # 1. Copy environment file
 cp env.example .env
@@ -282,7 +282,7 @@ npm run db:generate
 npm run db:push
 ```
 
-### **Production Setup:**
+### Production Setup:
 ```bash
 # 1. Set environment variables in your hosting platform
 # 2. Deploy with Docker Compose
@@ -293,56 +293,56 @@ docker-compose exec web npm run db:generate
 docker-compose exec web npm run db:push
 ```
 
-## 🛠️ **Service-Specific Setup**
+## Service-Specific Setup
 
-### **AWS S3 Setup:**
+### AWS S3 Setup:
 1. Create S3 bucket
 2. Create IAM user with S3 permissions
 3. Get access key and secret
 4. Set environment variables
 
-### **Cloudflare R2 Setup:**
+### Cloudflare R2 Setup:
 1. Create R2 bucket
 2. Create API token
 3. Get endpoint URL
 4. Set environment variables
 
-### **Resend Email Setup:**
+### Resend Email Setup:
 1. Sign up at resend.com
 2. Verify your domain
 3. Create API key
 4. Set environment variables
 
-### **PostgreSQL Setup:**
+### PostgreSQL Setup:
 1. Create database
 2. Get connection string
 3. Set DATABASE_URL
 
-### **Redis Setup:**
+### Redis Setup:
 1. Create Redis instance
 2. Get connection string
 3. Set REDIS_URL
 
-## 🔍 **Verification Commands**
+## Verification Commands
 
-### **Test Database Connection:**
+### Test Database Connection:
 ```bash
 npm run db:generate
 ```
 
-### **Test S3 Connection:**
+### Test S3 Connection:
 ```bash
 # Check if bucket exists
 aws s3 ls s3://your-bucket-name
 ```
 
-### **Test Email:**
+### Test Email:
 ```bash
 # Try logging in - should send magic link
 curl -X POST http://localhost:3000/api/auth/signin/email
 ```
 
-## 🚨 **Security Notes**
+## Security Notes
 
 1. **Never commit `.env` files** - They're already in `.gitignore`
 2. **Use strong secrets** - Generate random strings for NEXTAUTH_SECRET
@@ -350,7 +350,7 @@ curl -X POST http://localhost:3000/api/auth/signin/email
 4. **Use HTTPS in production** - Always use secure URLs
 5. **Rotate secrets regularly** - Update API keys periodically
 
-## 📞 **Need Help?**
+## Need Help?
 
 If you encounter issues:
 

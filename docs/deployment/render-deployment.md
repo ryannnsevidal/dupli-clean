@@ -1,10 +1,10 @@
-# DupliClean Render Deployment Guide 🚀
+# DupliClean Render Deployment Guide  
 
-## 🎯 **Production Deployment for Manager Demo**
+##   **Production Deployment for Manager Demo**
 
 This guide will help you deploy DupliClean to Render for a complete end-to-end demonstration.
 
-## 📋 **Prerequisites**
+##   **Prerequisites**
 
 ### **1. Render Account Setup**
 - Sign up at [render.com](https://render.com)
@@ -34,7 +34,7 @@ This guide will help you deploy DupliClean to Render for a complete end-to-end d
 3. Connect your GitHub repository
 4. Choose "Docker" environment
 
-## 🔧 **Environment Variables Setup**
+##   **Environment Variables Setup**
 
 ### **Required Variables for Render Web Service:**
 
@@ -206,7 +206,7 @@ services:
     plan: free
 ```
 
-## 🧪 **Comprehensive Testing Suite**
+##   **Comprehensive Testing Suite**
 
 ### **Create `tests/demo-flow.test.js`:**
 ```javascript
@@ -313,7 +313,7 @@ describe('API Endpoints', () => {
 });
 ```
 
-## 🎬 **Demo Script for Manager Presentation**
+##   **Demo Script for Manager Presentation**
 
 ### **Opening (2 minutes):**
 "Today I'm presenting DupliClean, a production-ready duplicate detection platform that can handle images and PDFs at scale. This solution addresses the common problem of managing duplicate files across cloud storage and local systems."
@@ -358,7 +358,7 @@ describe('API Endpoints', () => {
 - **Scalability**: Handles millions of files
 - **Integration**: Works with existing cloud storage
 
-## 🚀 **Deployment Commands**
+##   **Deployment Commands**
 
 ### **1. Deploy to Render:**
 ```bash
@@ -395,23 +395,23 @@ npm run test:e2e
 curl https://your-app.onrender.com/api/healthz
 ```
 
-## 📊 **Success Metrics for Demo**
+##   **Success Metrics for Demo**
 
 ### **Technical Metrics:**
-- ✅ Application loads in <3 seconds
-- ✅ File upload processes in <30 seconds
-- ✅ Duplicate detection accuracy >95%
-- ✅ Zero security vulnerabilities
-- ✅ 99.9% uptime during demo
+-   Application loads in <3 seconds
+-   File upload processes in <30 seconds
+-   Duplicate detection accuracy >95%
+-   Zero security vulnerabilities
+-   99.9% uptime during demo
 
 ### **Business Metrics:**
-- ✅ Storage cost reduction potential
-- ✅ Time savings for file management
-- ✅ User adoption readiness
-- ✅ Scalability for enterprise use
-- ✅ ROI calculation available
+-   Storage cost reduction potential
+-   Time savings for file management
+-   User adoption readiness
+-   Scalability for enterprise use
+-   ROI calculation available
 
-## 🎯 **Presentation Checklist**
+##   **Presentation Checklist**
 
 ### **Pre-Demo:**
 - [ ] Deploy to Render successfully
@@ -437,4 +437,4 @@ curl https://your-app.onrender.com/api/healthz
 
 ---
 
-**This setup provides a complete, production-ready demonstration that showcases all features without payment integration, perfect for manager presentation!** 🚀
+**This setup provides a complete, production-ready demonstration that showcases all features without payment integration, perfect for manager presentation!**  

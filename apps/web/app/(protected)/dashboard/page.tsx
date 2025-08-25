@@ -1,3 +1,20 @@
+/**
+ * DupliClean Dashboard Page
+ * 
+ * This dashboard provides comprehensive analytics and monitoring for the duplicate
+ * detection platform. It displays real-time statistics, processing job status,
+ * and system health metrics. The dashboard demonstrates enterprise-grade monitoring
+ * capabilities with professional data visualization and user-friendly interface.
+ * 
+ * Key features:
+ * - Real-time statistics and metrics display
+ * - Processing job monitoring and status tracking
+ * - Cloud service integration status
+ * - Storage usage analytics
+ * - System health indicators
+ * - Professional data visualization
+ */
+
 'use client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
