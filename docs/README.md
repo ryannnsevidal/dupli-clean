@@ -1,18 +1,63 @@
-# DupliClean - Duplicate Image & PDF Detection Platform
+# DupliClean Documentation
 
 A comprehensive, production-ready web application for detecting and managing duplicate and near-duplicate images and PDFs with advanced perceptual hashing and machine learning capabilities.
 
-## Manager Presentation Demo
+## Documentation Structure
 
-### Live Demo Access
+### Setup & Installation
+- [Manager Setup Guide](setup/manager-setup.md) - Quick setup for manager presentation
+- [Environment Setup](setup/environment-setup.md) - Complete environment configuration
+
+### Deployment
+- [Render Deployment](deployment/render-deployment.md) - PaaS deployment guide
+- [Deployment Checklist](deployment/deployment-checklist.md) - Production deployment checklist
+
+### Implementation
+- [Implementation Summary](implementation/implementation-summary.md) - Technical implementation overview
+- [Enhanced Implementation](implementation/enhanced-implementation-summary.md) - Detailed technical architecture
+
+### Assessment
+- [Final Assessment](final-assessment.md) - Industry-grade confirmation and testing results
+
+## Quick Start
+
+### Prerequisites
+- Node.js 20+
+- pnpm (recommended) or npm
+- Docker (for local development)
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/ryannnsevidal/dupli-clean.git
+cd dupli-clean
+
+# Install dependencies
+pnpm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your configuration
+
+# Start the development server
+pnpm dev
+```
+
+### Demo Mode
+The application runs in demo mode by default, providing:
+- Bypass authentication for easy testing
+- Synthetic test data for realistic scenarios
+- All features fully functional without external services
+
+## Live Demo Access
 - **Main Application**: http://localhost:3001
 - **Dashboard**: http://localhost:3001/dashboard
 - **Import Files**: http://localhost:3001/import
 - **View Duplicates**: http://localhost:3001/duplicates
 
-### Key Features Demonstrated
+## Key Features
 
-#### 1. Professional Dashboard Analytics
+### Professional Dashboard Analytics
 - **16 Total Files** processed with comprehensive metadata
 - **5 Duplicate Clusters** detected with varying similarity levels
 - **11 Duplicates** identified and categorized
@@ -20,7 +65,7 @@ A comprehensive, production-ready web application for detecting and managing dup
 - **91% Average Similarity** across all detected clusters
 - **Real-time Processing Jobs** with status tracking
 
-#### 2. Advanced Duplicate Detection
+### Advanced Duplicate Detection
 - **5 Realistic Test Clusters** showcasing different scenarios:
   - **Vacation Photos** (4 files, 95% similarity) - High-quality image duplicates
   - **Screenshots** (3 files, 88% similarity) - Medium similarity variations
@@ -28,35 +73,17 @@ A comprehensive, production-ready web application for detecting and managing dup
   - **Research Papers** (3 files, 92% similarity) - PDF content duplicates
   - **Financial Reports** (2 files, 85% similarity) - PDF document variations
 
-#### 3. Comprehensive File Import System
+### Comprehensive File Import System
 - **Local File Upload** with drag & drop interface
 - **Cloud Services Integration** (Google Drive, Dropbox, OneDrive)
 - **Batch Processing** capabilities
 - **Real-time Progress Tracking**
 
-#### 4. Professional UI/UX
+### Professional UI/UX
 - **Modern, Responsive Design** using TailwindCSS
 - **Enterprise-grade Components** with Radix UI
 - **Accessibility Compliant** with screen reader support
 - **Smooth Animations** and professional polish
-
-## Comprehensive Testing Coverage
-
-### Unit Tests: 74/90 Passing (82% Success Rate)
-- **Button Component**: 12/12 tests (100%)
-- **Card Component**: 10/15 tests (67%)
-- **Badge Component**: 11/13 tests (85%)
-- **Utility Functions**: All tests passing
-- **Synthetic Data**: Comprehensive test coverage
-
-### Edge Cases Tested
-- Empty content, null/undefined values
-- Special characters and emojis
-- Very large and very small numbers
-- Complex nested structures
-- Error states and loading states
-- DOM nesting validation
-- Accessibility compliance
 
 ## Technical Architecture
 
@@ -87,35 +114,23 @@ A comprehensive, production-ready web application for detecting and managing dup
 - **Pre-signed URLs** for secure file uploads
 - **Multi-cloud Support** (Google Drive, Dropbox, OneDrive, Box)
 
-## Getting Started
+## Testing Coverage
 
-### Prerequisites
-- Node.js 20+
-- pnpm (recommended) or npm
-- Docker (for local development)
+### Unit Tests: 74/90 Passing (82% Success Rate)
+- **Button Component**: 12/12 tests (100%)
+- **Card Component**: 10/15 tests (67%)
+- **Badge Component**: 11/13 tests (85%)
+- **Utility Functions**: All tests passing
+- **Synthetic Data**: Comprehensive test coverage
 
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/ryannnsevidal/dupli-clean.git
-cd dupli-clean
-
-# Install dependencies
-pnpm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your configuration
-
-# Start the development server
-pnpm dev
-```
-
-### Demo Mode
-The application runs in demo mode by default, providing:
-- Bypass authentication for easy testing
-- Synthetic test data for realistic scenarios
-- All features fully functional without external services
+### Edge Cases Tested
+- Empty content, null/undefined values
+- Special characters and emojis
+- Very large and very small numbers
+- Complex nested structures
+- Error states and loading states
+- DOM nesting validation
+- Accessibility compliance
 
 ## Performance & Scalability
 
@@ -166,16 +181,6 @@ pnpm build
 - **Render Ready** - PaaS deployment configuration
 - **Environment Variables** - Secure configuration management
 - **Health Checks** - Application monitoring
-
-## Documentation
-
-For detailed documentation, setup guides, and implementation details, see the [docs](docs/) directory:
-
-- [Documentation Overview](docs/README.md)
-- [Setup & Installation](docs/setup/)
-- [Deployment Guides](docs/deployment/)
-- [Implementation Details](docs/implementation/)
-- [Final Assessment](docs/final-assessment.md)
 
 ## Future Enhancements
 
